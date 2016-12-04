@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/lightstodo</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+
+
+        <!-- 以下是利用myeclipse自动生成xxx.cfg.xml需要补充的 -->
+        <!-- 创建SessionFactory对象时自动创建数据表 -->
+        <property name="hbm2ddl.auto">update</property>
+        <!-- 控制台显示执行的sql语句-->
+        <property name="show_sql">true</property>
+        <!-- 配置currentSession,如果有用到getcurrentSession()，一定要设置，否则报错 -->
+        <property name="current_session_context_class">thread</property>
+
+
+        <!-- 配置映射文件,一定要放在property标签后面 -->
+        <mapping resource="bean/TodoItem.hbm.xml"/>
+        <mapping resource="bean/User.hbm.xml"/>
+        <mapping resource="bean/ZoneComment.hbm.xml"/>
+        <mapping resource="bean/ZoneMessage.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

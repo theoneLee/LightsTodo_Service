@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+	<class name="User">
+		<id name="uid" type="integer">
+			<generator class="identity"/>
+		</id>
+		
+		<property name="userName"/>
+		<property name="userPW"/>
+		<property name="icon" />
+		<property name="totalDay" />
+		<property name="currentDay" />
+		<property name="point" />
+
+		<set name="todoItems" cascade="save-update" fetch="join" lazy="false">
+			<key column="user_id"></key>
+			<one-to-many class="TodoItem"/>
+		</set>
+
+		<set name="zoneMessages" inverse="true" cascade="save-update" fetch="join" lazy="false">
+			<key column="user_id"></key>
+			<one-to-many class="ZoneMessage"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

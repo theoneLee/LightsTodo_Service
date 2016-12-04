@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="bean">
+    <class name="ZoneMessage">
+        <id name="zid" type="integer">
+            <generator class="identity"/>
+        </id>
+
+        <property name="userName"/>
+        <property name="content"/>
+        <property name="date" />
+
+
+        <set name="zoneComments" cascade="save-update" fetch="join" lazy="false">
+            <key column="zone_message_id"></key>
+            <one-to-many class="ZoneComment"/>
+        </set>
+
+        <many-to-one name="user" class="bean.User" column="user_id"/>
+    </class>
+
+</hibernate-mapping>
