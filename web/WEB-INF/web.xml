@@ -8,8 +8,6 @@
         <!--<param-value>/WEB-INF/applicationContext.xml</param-value>-->
     <!--</context-param>-->
     <!--&lt;!&ndash;-->
-       <!--在idea创建springMVC项目时会自动生成这个web.xml-->
-    <!--这里没有注释的话就报错：org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file&ndash;&gt;-->
     <!--<listener>-->
         <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
     <!--</listener>-->
