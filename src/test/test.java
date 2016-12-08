@@ -1,4 +1,4 @@
-package biz;
+package test;
 
 import bean.TodoItem;
 import bean.User;
@@ -8,7 +8,6 @@ import dao.TodoItemDAO;
 import dao.UserDAO;
 import dao.ZoneMessageDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.Date;
 /**
  * Created by Lee on 2016/11/29 0029.
  */
-@Component
+
 public class test {
     private User user;
 

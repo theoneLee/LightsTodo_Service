@@ -7,6 +7,12 @@
         <element id="directory" name="classes">
           <element id="module-output" name="LightsTodo_Service" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="Hibernate 5.2.3-5.2.3" />
+          <element id="library" level="application" name="Spring-4.3.3.RELEASE" />
+          <element id="library" level="application" name="Spring MVC-4.3.3.RELEASE" />
+          <element id="library" level="application" name="mysql-connector" />
+        </element>
       </element>
     </root>
   </artifact>
