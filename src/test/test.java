@@ -4,18 +4,26 @@ import bean.TodoItem;
 import bean.User;
 import bean.ZoneComment;
 import bean.ZoneMessage;
+import config.BeanConfig;
 import dao.TodoItemDAO;
 import dao.UserDAO;
 import dao.ZoneMessageDAO;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by Lee on 2016/11/29 0029.
  */
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = BeanConfig.class)
 public class test {
     private User user;
 
@@ -30,7 +38,7 @@ public class test {
 
 
 
-    test(){
+    public test(){
 
     }
 
@@ -39,8 +47,11 @@ public class test {
         this.user=user;
     }
 
-    private void testSpring() {
-        System.out.println(user);
+    @Test
+    public void testSpring() {
+
+        //System.out.println(user);
+        assertNotNull(user);
     }
 
 

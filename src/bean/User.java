@@ -1,5 +1,6 @@
 package bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -22,7 +23,9 @@ public class User implements Serializable{
     private int point;//积分
 
     //关联关系
+    @JsonIgnore
     Set<TodoItem> todoItems=new HashSet<TodoItem>();//一个User可以有0-n个todoitem
+    @JsonIgnore
     Set<ZoneMessage> zoneMessages=new HashSet<ZoneMessage>();//一个User可以有0-n个ZoneMessage
 
     public User() {
