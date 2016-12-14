@@ -1,5 +1,6 @@
 package bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -17,8 +18,10 @@ public class ZoneMessage implements Serializable{
     private String content;
     private Date date;
 
+    @JsonIgnore
     Set<ZoneComment> zoneComments=new HashSet<ZoneComment>();//一个朋友圈信息可以有0-n个评论
 
+    @JsonIgnore
     User user;//多对一
 
     public ZoneMessage() {

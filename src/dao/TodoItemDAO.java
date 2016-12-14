@@ -1,10 +1,14 @@
 package dao;
 
 import bean.TodoItem;
+import bean.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import util.HibernateUtil;
+
+import java.util.List;
 
 /**
  * Created by Lee on 2016/11/29 0029.
@@ -44,6 +48,26 @@ public class TodoItemDAO {
             e.printStackTrace();
             return -1;
         }
+    }
+    public void deleteTodoItemByUid(int uid){
+        Session s= HibernateUtil.getSession();
+        Transaction tx=s.beginTransaction();
+        Query query=s.createQuery("from User u inner join fetch u.todoItems where u.uid=?");
+        query.setInteger(0,uid);
+        User user= (User) query.uniqueResult();
+        List<TodoItem> list= (List<TodoItem>) user.getTodoItems();
+        if (list.isEmpty())
+            return ;
+        for (TodoItem item:list){
+            try{
+                s.delete(item);
+                tx.commit();
+            }catch (Exception e){
+                if (tx!=null)tx.rollback();
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public int updateTodoItem(TodoItem item){

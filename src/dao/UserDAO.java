@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import util.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lee on 2016/11/29 0029.
@@ -96,7 +97,15 @@ public class UserDAO {
 
         updateUser(user);
     }
+    public int connectTodoItem(int id, ArrayList<TodoItem> list){
+        User user=getUserById(id);
 
+        for (TodoItem item:list){
+            user.getTodoItems().add(item);//对每一个TodoItem建立和user的关联关系(单向一对多)
+        }
+
+        return updateUser(user);
+    }
 
 
     public void connectZoneMessage(String userName, ArrayList<ZoneMessage> list){
@@ -124,5 +133,25 @@ public class UserDAO {
     }
 
 
+    public List<TodoItem> getTodoItemList(int uid) {
+        Session session=HibernateUtil.getSession();
+        Transaction tx=session.beginTransaction();
+        Query query=session.createQuery("select u.todoItems from User u where u.uid=?");
+        query.setInteger(0,uid);
+        List<TodoItem> list= query.list();
+        tx.commit();
+        return list;
+    }
 
+    public List<ZoneMessage> getZoneMessageListById(int uid, int offset, int count) {
+        Session session=HibernateUtil.getSession();
+        Transaction tx=session.beginTransaction();
+        Query query=session.createQuery("select u.zoneMessages from User u where u.uid=?");
+        query.setInteger(0,uid);
+        query.setFirstResult(offset);
+        query.setMaxResults(count);
+        List<ZoneMessage> list=query.list();
+        tx.commit();
+        return list;
+    }
 }

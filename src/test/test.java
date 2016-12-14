@@ -31,9 +31,9 @@ public class test {
         test t=new test();
 //        t.testTodoItem();
 //        t.testZoneMessage();
-//        t.testZoneComment();
+        t.testZoneComment();
 //        t.testDelete();
-        t.testSpring();
+        //t.testSpring();
     }
 
 
@@ -93,7 +93,7 @@ public class test {
         items.add(comment1);
         items.add(comment2);
 
-        dao.connectZoneComment(1,items);
+        dao.connectZoneComment(2,items);
     }
 
     private void testDelete(){//测试delete是否能够返回id--》可以

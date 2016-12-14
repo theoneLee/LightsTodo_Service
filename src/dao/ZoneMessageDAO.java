@@ -1,13 +1,16 @@
 package dao;
 
+import bean.User;
 import bean.ZoneComment;
 import bean.ZoneMessage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import util.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lee on 2016/11/29 0029.
@@ -75,10 +78,9 @@ public class ZoneMessageDAO {
         return message;
     }
 
-    //做关联操作（与ZoneComment）
 
     /**
-     *
+     *做关联操作（与ZoneComment）
      * @param zoneMessageId
      * @param list
      */
@@ -92,10 +94,50 @@ public class ZoneMessageDAO {
         updateZoneMessage(message);
     }
 
+    /**
+     * 返回对应zid的comment　List
+     * @param zid
+     * @return
+     */
+    public List<ZoneComment> getZoneCommentListByZid(int zid) {
+        Session s= HibernateUtil.getSession();
+        Transaction tx=s.beginTransaction();
+        Query query=s.createQuery("select m.zoneComments from ZoneMessage m where m.zid=?");//查询时不需要关联查询，因为你要查的只有zoneComments，如果加入不会报错，但是输出的结果是有重复的
+        query.setInteger(0,zid);
+        List<ZoneComment> list= query.list();
+        tx.commit();
+        return list;
+    }
 
+    /**
+     * 返回一个按时间从大到小的list
+     * @param offset
+     * @param count
+     * @return
+     */
+    public List<ZoneMessage> getZoneMessageList(int offset, int count) {
+        Session s= HibernateUtil.getSession();
+        Transaction tx=s.beginTransaction();
+        Query query=s.createQuery("from ZoneMessage order by date desc");
+        query.setFirstResult(offset);
+        query.setMaxResults(count);
+        List<ZoneMessage> list=query.list();
+        tx.commit();
+        return list;
+    }
 
-
-
+    /**
+     * 新增一个ZoneMessage
+     * @param uid
+     * @param zoneMessage
+     * @return
+     */
+    public int appendZoneMessage(int uid, ZoneMessage zoneMessage) {
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.getUserById(uid);
+        user.getZoneMessages().add(zoneMessage);
+        return userDAO.updateUser(user);
+    }
 
 
     //下面写hql查询

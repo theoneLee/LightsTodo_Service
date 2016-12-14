@@ -1,6 +1,7 @@
 package dao;
 
 import bean.ZoneComment;
+import bean.ZoneMessage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
@@ -68,6 +69,19 @@ public class ZoneCommentDAO {
         ZoneComment comment=s.get(ZoneComment.class,id);
         tx.commit();
         return comment;
+    }
+
+    /**
+     * 拿到
+     * @param zid
+     * @param zoneComment
+     * @return
+     */
+    public int appendZoneComment(int zid, ZoneComment zoneComment) {
+        ZoneMessageDAO messageDAO=new ZoneMessageDAO();
+        ZoneMessage zoneMessage=messageDAO.getZoneMessageById(zid);
+        zoneMessage.getZoneComments().add(zoneComment);
+        return messageDAO.updateZoneMessage(zoneMessage);
     }
 
 
